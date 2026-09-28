@@ -14,10 +14,9 @@ in
 {
   systems = [ "aarch64-linux" ];
 
-  flake.systemConfigs = systemConfigs // {
-    # Keep the default for `--flake .`; matching hostnames are preferred.
-    default = systemConfigs."thinkstationpgx-2faa";
-  };
+  # No `default` output: an unmatched hostname must fail instead of selecting
+  # another host's configuration implicitly.
+  flake.systemConfigs = systemConfigs;
 
   perSystem =
     { system, ... }:
