@@ -10,6 +10,7 @@ let
         git
         tldr
         ripgrep
+        bat
       ];
       environment.etc."gitconfig".text = lib.generators.toGitINI {
         user = {
