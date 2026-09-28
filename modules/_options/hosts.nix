@@ -21,11 +21,6 @@
             description = "System feature modules composed into the host.";
           };
 
-          homeFeatures = lib.mkOption {
-            type = lib.types.listOf lib.types.str;
-            default = [ ];
-            description = "Home Manager feature modules composed for host users.";
-          };
 
           tags = lib.mkOption {
             type = lib.types.listOf lib.types.str;
@@ -33,11 +28,7 @@
             description = "Free-form metadata used to describe the host.";
           };
 
-          nixosStateVersion = lib.mkOption {
-            type = lib.types.str;
-            default = "25.11";
-            description = "NixOS state version for the host.";
-          };
+
         };
       }
     );

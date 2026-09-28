@@ -6,6 +6,7 @@ let
     { lib, pkgs, ... }:
     {
       environment.systemPackages = with pkgs; [
+        bashInteractive
         git
         tldr
       ];
@@ -20,10 +21,6 @@ let
 in
 {
   config = {
-    my.modules.nixos.common = system;
     my.modules.systemManager.common = system;
-
-    flake.nixosModules.common = system;
-    flake.systemManagerModules.common = system;
   };
 }

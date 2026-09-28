@@ -13,7 +13,7 @@ in
 
         description = lib.mkOption {
           type = lib.types.str;
-          default = "Dendritic ThinkStation configuration";
+          default = "Dendritic System Manager configuration";
         };
       };
     };
@@ -24,17 +24,6 @@ in
   options.my.modules = lib.mkOption {
     type = lib.types.submodule {
       options = {
-        nixos = lib.mkOption {
-          type = moduleSet;
-          default = { };
-          description = "Reusable NixOS lower-level modules.";
-        };
-
-        homeManager = lib.mkOption {
-          type = moduleSet;
-          default = { };
-          description = "Reusable Home Manager lower-level modules.";
-        };
 
         systemManager = lib.mkOption {
           type = moduleSet;
@@ -49,6 +38,6 @@ in
 
   config.my.meta = {
     name = "infra";
-    description = "Dendritic ThinkStation configuration";
+    description = "Dendritic System Manager configuration";
   };
 }

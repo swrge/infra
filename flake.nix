@@ -1,5 +1,5 @@
 {
-  description = "Dendritic ThinkStation configuration";
+  description = "Dendritic System Manager configuration";
 
   nixConfig = {
     extra-substituters = [ "https://cache.numtide.com" ];
@@ -13,11 +13,6 @@
 
     flake-parts.url = "github:hercules-ci/flake-parts";
     import-tree.url = "github:denful/import-tree";
-
-    home-manager = {
-      url = "github:nix-community/home-manager";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
 
     # Kept while the ThinkStation is migrated from the original standalone setup.
     system-manager = {

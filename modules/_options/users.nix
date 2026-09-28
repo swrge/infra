@@ -9,16 +9,6 @@
             default = "";
           };
 
-          homeStateVersion = lib.mkOption {
-            type = lib.types.str;
-            default = "25.11";
-          };
-
-          extraGroups = lib.mkOption {
-            type = lib.types.listOf lib.types.str;
-            default = [ ];
-          };
-
           gitName = lib.mkOption {
             type = lib.types.str;
             default = "";
@@ -32,6 +22,6 @@
       }
     );
     default = { };
-    description = "User metadata shared by system and Home Manager modules.";
+    description = "User metadata shared by system-manager modules.";
   };
 }
