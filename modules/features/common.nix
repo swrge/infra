@@ -1,0 +1,29 @@
+{ config, ... }:
+let
+  user = config.my.users.ssi;
+
+  system =
+    { lib, pkgs, ... }:
+    {
+      environment.systemPackages = with pkgs; [
+        git
+        tldr
+      ];
+      environment.etc."gitconfig".text = lib.generators.toGitINI {
+        user = {
+          name = user.gitName;
+          email = user.gitEmail;
+        };
+        init.defaultBranch = "main";
+      };
+    };
+in
+{
+  config = {
+    my.modules.nixos.common = system;
+    my.modules.systemManager.common = system;
+
+    flake.nixosModules.common = system;
+    flake.systemManagerModules.common = system;
+  };
+}

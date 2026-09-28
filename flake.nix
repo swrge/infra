@@ -1,34 +1,39 @@
 {
-  description = "Standalone System Manager configuration";
+  description = "Dendritic ThinkStation configuration";
 
   nixConfig = {
     extra-substituters = [ "https://cache.numtide.com" ];
-    extra-trusted-public-keys = [ "niks3.numtide.com-1:DTx8wZduET09hRmMtKdQDxNNthLQETkc/yaX7M4qK0g=" ];
+    extra-trusted-public-keys = [
+      "niks3.numtide.com-1:DTx8wZduET09hRmMtKdQDxNNthLQETkc/yaX7M4qK0g="
+    ];
   };
 
   inputs = {
-    # Specify the source of System Manager and Nixpkgs.
-    nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
-    system-manager.url = "github:numtide/system-manager";
+    nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
+
+    flake-parts.url = "github:hercules-ci/flake-parts";
+    import-tree.url = "github:denful/import-tree";
+
+    home-manager = {
+      url = "github:nix-community/home-manager";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
+    # Kept while the ThinkStation is migrated from the original standalone setup.
+    system-manager = {
+      url = "github:numtide/system-manager";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
-  outputs =
-    {
-      self,
-      nixpkgs,
-      system-manager,
-      ...
-    }:
-    let
-      system = "aarch64-linux";
-    in
-    {
-      systemConfigs.default = system-manager.lib.makeSystemConfig {
-        # Specify your system configuration modules here, for example,
-        # the path to your system.nix.
-        modules = [ ./system.nix ./apps.nix ];
-
-        # Optionally specify extraSpecialArgs and overlays
-      };
+  outputs = inputs:
+    inputs.flake-parts.lib.mkFlake { inherit inputs; } {
+      imports = [
+        # import-tree skips paths containing `/_` by default.
+        ./modules/_options/hosts.nix
+        ./modules/_options/users.nix
+        ./modules/_options/meta.nix
+        (inputs.import-tree ./modules)
+      ];
     };
 }
