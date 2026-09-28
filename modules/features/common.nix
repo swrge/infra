@@ -9,6 +9,7 @@ let
         bashInteractive
         git
         tldr
+        ripgrep
       ];
       environment.etc."gitconfig".text = lib.generators.toGitINI {
         user = {
