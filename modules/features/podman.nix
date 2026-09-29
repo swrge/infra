@@ -14,6 +14,11 @@ let
       # permissions when this feature sets system-manager.podman.enable.
       system-manager.podman.enable = true;
 
+      # System Manager puts Podman in /run/system-manager/sw, but systemd
+      # discovers generators from /etc/systemd/user-generators.
+      environment.etc."systemd/user-generators/podman-user-generator".source =
+        "${pkgs.podman}/lib/systemd/user-generators/podman-user-generator";
+
       # Quadlet reads rootless units from this path for user systemd managers.
       # Actual *.container/*.pod/*.volume files can be added here once a
       # workload is chosen; the README is ignored by the Quadlet generator.
