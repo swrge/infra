@@ -5,7 +5,8 @@ let
   mkSystemConfig = host:
     inputs.system-manager.lib.makeSystemConfig {
       modules =
-        selectModules config.my.modules.systemManager host.features
+        selectModules config.my.modules.systemManager host.users
+        ++ selectModules config.my.modules.systemManager host.features
         ++ [ { nixpkgs.hostPlatform = host.system; } ];
     };
 
